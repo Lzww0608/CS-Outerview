@@ -1,50 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="160e3954-4ca7-43dc-947c-db26a46d4a81" name="更改" comment="">
-      <change beforePath="$PROJECT_DIR$/项目/1.整体架构.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/10.save与cancel.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/11.Redis缓存.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/12.下载量排序.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/13.Nginx使用.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/14.FastDFS架构.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/15.Storage Server存储机制.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/16.文件同步机制.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/17.MD5作用.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/18.token验证.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/19.Base64编码.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/2.文件唯一性.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/20.Nginx配置.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/21.上传文件流程.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/22.与OSS对比.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/23.文件、块和对象存储.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/24.项目难点.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/3.生成分享链接.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/4.身份校验.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/5.缓存一致性.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/6.连接池.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/7.并发模型.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/8.日志记录.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/9.数据库故障.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/PicHost.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/minio-app/.vscode/settings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/minio-app/CMakeLists.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/minio-app/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/minio-app/compile_stream.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/minio-app/minio_basic.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/minio-app/minio_stream.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/minio-app/minio对象存储C++上传下载和流式传输.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/minio-app/test-file.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/项目/minio-app/time.flv" beforeDir="false" />
-    </list>
+    <list default="true" id="160e3954-4ca7-43dc-947c-db26a46d4a81" name="更改" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0
-}]]></component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="360xvYp6oHuTmfkEmh2AsZI53Xn" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -53,7 +24,12 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "git-widget-placeholder": "main",
+    "go.import.settings.migrated": "true",
     "last_opened_file_path": "C:/Users/HP",
     "nodejs_package_manager_path": "npm"
   }
@@ -67,6 +43,9 @@
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
   </component>
