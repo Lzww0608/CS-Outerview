@@ -58,3 +58,5 @@
 - **IP 封禁：** 如果同一个 IP 访问太快，服务器会封锁该 IP。
 - **验证码 (CAPTCHA)：** 弹出拼图或文字验证，确认操作者是人不是机器。
 - **动态渲染 (Dynamic Rendering)：** 很多现代网站（如使用 React/Vue）的内容是靠 JavaScript 动态生成的，普通的 HTTP 请求抓不到内容，需要模拟真实的浏览器环境（如使用 Selenium 或 Puppeteer）。
+
+![](../../pic/webcrawler1.png)
