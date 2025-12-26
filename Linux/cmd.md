@@ -9,7 +9,7 @@ ps aux --sort=-%mem | head -n 11
 
 **寻找一个文件的位置**
 
-```go
+```bash
 # 在当前目录及其子目录下查找
 find . -name "xxx.py"
 # 在你用户的主目录下查找
@@ -21,4 +21,12 @@ pwdx 1375137
 ```
 
 
+
+#### 查看进程运行时间
+
+```bash
+# 启动时间 运行总时长
+ps -p <PID> -o lstart,etime
+ps -eo pid,lstart,etime,cmd | grep <进程名>
+```
 
