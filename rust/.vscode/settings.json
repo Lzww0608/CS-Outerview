@@ -1,0 +1,6 @@
+{
+  "code-runner.runInTerminal": true,
+  "code-runner.executorMap": {
+    "rust": "cargo run --manifest-path \"$dir\\..\\Cargo.toml\""
+  }
+}

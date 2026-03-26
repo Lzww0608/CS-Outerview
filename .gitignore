@@ -1,0 +1,10 @@
+# Rust build artifacts
+rust/**/target/
+rust/**/.rustc_info.json
+
+# Generated when compiling single files directly with rustc / Code Runner
+rust/**/src/*.exe
+rust/**/src/*.pdb
+
+# Rust backup files
+rust/**/*.rs.bk
