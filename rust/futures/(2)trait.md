@@ -1,4 +1,29 @@
-﻿use std::future::Future;
+## 1. 定义
+​​Future​​​​ 是Rust异步编程的核心trait，它代表一个可能尚未完成的异步计算。
+Future trait定义如下：
+
+```rust
+pub trait Future {
+    type Output;
+    /// 返回值：
+    /// - Poll::Ready(output): Future 已完成，返回结果
+    /// - Poll::Pending: Future 尚未完成，稍后会被唤醒
+    fn poll(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output>;
+}
+```
+
+Poll枚举定义如下：
+
+```rust
+pub enum Poll<T> {
+    Ready(T),   /// Future 已完成，返回结果
+    Pending,    /// Future 尚未完成，稍后会被唤醒
+}
+```
+
+## 2. 实现一个简易的Future
+```rust 
+use std::future::Future;
 use std::pin::Pin;
 use std::task::{Context, Poll};
 use std::task::{RawWaker, RawWakerVTable, Waker};
@@ -62,3 +87,4 @@ fn main() {
     let result = simple_block_on(future);
     println!("Result: {}", result);
 }
+```
