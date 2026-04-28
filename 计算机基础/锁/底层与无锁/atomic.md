@@ -80,6 +80,51 @@ CAS 有一个著名的缺陷。如果变量从 A 变成 B，又变回 A，CAS �
 
 ---
 
+### 4.1 CAS 的常见问题
+
+CAS 适合低冲突、短临界区的乐观并发，但它不是“无锁万能解”。
+
+#### 1. ABA 问题
+
+ABA 的本质是：CAS 只比较“当前值是否等于期望值”，无法知道这段时间内值是否发生过变化。
+
+典型无锁栈场景：
+
+```text
+线程 T1 读取 head = A，next = B
+线程 T2 pop A，pop B，又 push A
+线程 T1 CAS(head, A, B) 成功
+```
+
+从 T1 看，head 仍然是 A，CAS 成功；但实际上 A 已经被移除又放回，B 可能已经不再是合法节点，可能导致链表断裂、重复释放或访问悬空指针。
+
+解决方向：
+
+1. **版本号/时间戳**：把指针和版本一起 CAS，例如 `(ptr, version)`，每次修改 version 递增。
+2. **Tagged Pointer**：利用指针对齐留下的低位保存小版本号。
+3. **Hazard Pointer**：线程声明自己正在访问某些节点，其他线程延迟释放这些节点。
+4. **Epoch Based Reclamation**：按全局 epoch 延迟回收，确认所有旧读者离开后再释放。
+5. **避免复用地址**：对象池和内存复用会放大 ABA，必要时延迟复用。
+
+#### 2. 自旋开销
+
+CAS 失败时通常会循环重试。高竞争下大量线程同时 CAS 同一个缓存行，会导致缓存行在 CPU 核之间反复失效，吞吐可能比互斥锁更差。
+
+常见优化：
+
+1. 指数退避或 `pause/yield`。
+2. 分片计数，减少所有线程争同一个原子变量。
+3. 使用 MCS、Ticket Lock 等排队锁。
+4. 冲突很高时直接使用 mutex，让线程阻塞而不是烧 CPU。
+
+#### 3. 只能保证单点原子
+
+一个 CAS 只能原子修改一个内存位置。多个字段之间的不变量，例如“指针、长度、版本必须同时变化”，需要组合原子对象、锁、事务或专门的无锁算法。
+
+#### 4. 内存序容易写错
+
+CAS 成功不代表普通变量自动可见。发布对象时通常需要 `release`，读取发布结果时需要 `acquire`；只用 `relaxed` 可能保证 CAS 成功，却不能保证读到对象完整初始化后的状态。
+
 ### 5. 应用场景
 
 原子操作是所有并发控制的基石，应用极其广泛：
@@ -125,3 +170,54 @@ C++ 的 `std::shared_ptr` 是线程安全的（指引用计数部分）。
 *   **底层**：靠总线锁或 MESI 缓存一致性协议。
 *   **指令**：x86 的 `LOCK CMPXCHG` 或 ARM 的 `LL/SC`。
 *   **应用**：从简单的计数器，到复杂的无锁队列，再到操作系统内核的自旋锁，一切并发皆始于原子。
+
+### 6. C++ 内存序
+
+`std::atomic` 不只解决“单次操作不可分割”，还要表达跨线程的可见性和重排约束。C++ 用 `memory_order` 描述这些约束。
+
+常见内存序：
+
+| 内存序 | 含义 | 常见场景 |
+| --- | --- | --- |
+| `memory_order_relaxed` | 只保证原子性，不保证同步和顺序 | 统计计数、唯一编号 |
+| `memory_order_acquire` | 后续读写不能重排到 acquire 前；读取 release 发布的数据 | 消费者读取就绪标志 |
+| `memory_order_release` | 之前读写不能重排到 release 后；发布数据 | 生产者发布就绪标志 |
+| `memory_order_acq_rel` | 同时具备 acquire 和 release | CAS、exchange、fetch_add 读改写 |
+| `memory_order_seq_cst` | 全局单一顺序，最强语义 | 默认选项、简单但可能更重 |
+
+典型发布-订阅模型：
+
+```cpp
+#include <atomic>
+
+struct Data {
+    int x;
+    int y;
+};
+
+Data data;
+std::atomic<bool> ready{false};
+
+void producer() {
+    data.x = 1;
+    data.y = 2;
+    ready.store(true, std::memory_order_release);
+}
+
+void consumer() {
+    while (!ready.load(std::memory_order_acquire)) {
+    }
+    // 这里能看到 producer 在 release 前写入的 data.x/data.y
+    use(data.x, data.y);
+}
+```
+
+如果把这里的 `ready` 都改成 `relaxed`，消费者可能看到 `ready == true`，但不保证看到 `data` 的最新写入。
+
+### 7. 面试易错点
+
+1. `atomic` 保证单个原子对象不会 data race，但不自动保证多个普通变量之间的一致性。
+2. `relaxed` 可以用于计数，但不能用于发布对象初始化完成这类同步场景。
+3. acquire/release 要成对建立同步关系：一个线程 release store，另一个线程 acquire load 并读到该值。
+4. `seq_cst` 最容易推理，但高性能无锁结构会按热点路径选择更弱内存序。
+5. x86 内存模型较强，不代表 C++ 代码可以不写正确内存序；代码还要在 ARM、RISC-V 等弱内存模型上成立。
