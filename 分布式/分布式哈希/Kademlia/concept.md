@@ -93,3 +93,4 @@ Chord 是另一种经典的 DHT 算法（基于环形拓扑），Kademlia 是后
 
 **总结：**
 Kademlia 可以被看作是**一致性哈希的一种高级、针对 P2P 这种高动态网络环境优化过的实现版本**。相比于 Chord 和传统哈希环，Kademlia 胜在**抗抖动（Robustness）**和**性能（Performance）**，这主要归功于 XOR 距离的对称性和 K-Bucket 的冗余备份机制。
+
