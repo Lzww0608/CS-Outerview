@@ -1,0 +1,20 @@
+1. SIMD / CRC32C 硬件指令
+2. cache locality
+3. memory alignment
+4. false sharing
+5. batch write
+6. group commit
+7. zero-copy
+8. mmap
+9. Direct I/O
+10. io_uring
+11. epoll
+12. lock-free queue
+13. CPU affinity
+14. NUMA
+15. huge page
+16. page cache
+17. object pool
+18. branch prediction
+19. hardware prefetch / software prefetch
+20. kernel bypass / DPDK
